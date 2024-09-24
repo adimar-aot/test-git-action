@@ -1,0 +1,21 @@
+name: promote PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number'
+        required: true
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.pr_number }}
+      - name: Promote
+        run: |
+          echo "Promoting PR ${{ github.event.inputs.pr_number }}"
+          # Add your promotion logic here
+          cat version.txt
