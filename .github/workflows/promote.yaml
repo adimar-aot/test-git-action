@@ -10,10 +10,24 @@ jobs:
   promote:
     runs-on: ubuntu-latest
     steps:
+      - name: print branch
+        run: |
+          echo "Branch: ${{ github.event.inputs.pr_number }}"
+      - name: print event
+        run: |
+          echo "Event: ${{ github.event.inputs.pr_number }}"
+      - name: print sha
+        run: |
+          echo "SHA: ${{ github.sha }}"
+      - name: print commit sha
+        run: |
+          echo "Commit SHA: ${{ github.event.pull_request.head.sha }}"
+
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.pr_number }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Promote
         run: |
           echo "Promoting PR ${{ github.event.inputs.pr_number }}"
